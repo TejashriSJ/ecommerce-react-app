@@ -11,10 +11,14 @@ import "./App.css";
 class App extends Component {
   constructor(props) {
     super(props);
+    this.API_STATES = {
+      LOADING: "loading",
+      LOADED: "loaded",
+      ERROR: "error",
+    };
     this.state = {
       products: [],
-      isLoading: true,
-      isError: false,
+      status: this.API_STATES.LOADING,
     };
   }
 
@@ -24,22 +28,22 @@ class App extends Component {
         return response.json();
       })
       .then((data) => {
-        this.setState({ products: data, isLoading: false });
+        this.setState({ products: data, status: this.API_STATES.LOADED });
       })
       .catch((err) => {
-        this.setState({ isError: true, isLoading: false });
+        this.setState({ status: this.API_STATES.ERROR });
       });
   }
 
   render() {
-    const { products, isLoading, isError } = this.state;
+    const { products, status } = this.state;
     return (
       <div className="App">
         <Header />
         <main>
-          {isLoading && <Loader />}
-          {isError && <Error />}
-          {!isLoading && !isError && <Products products={products} />}
+          {status === "loading" && <Loader />}
+          {status === "error" && <Error />}
+          {status === "loaded" && <Products products={products} />}
         </main>
 
         <Footer />
