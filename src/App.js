@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import Header from "./Components/Header";
 import Products from "./Components/Products";
@@ -8,48 +8,38 @@ import Error from "./Components/Error";
 
 import "./App.css";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.API_STATES = {
-      LOADING: "loading",
-      LOADED: "loaded",
-      ERROR: "error",
-    };
-    this.state = {
-      products: [],
-      status: this.API_STATES.LOADING,
-    };
-  }
+function App() {
+  const LOADING = "loading";
+  const LOADED = "loaded";
+  const ERROR = "error";
 
-  componentDidMount() {
+  const [data, setData] = useState({ products: [], status: LOADING });
+
+  useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((response) => {
         return response.json();
       })
-      .then((data) => {
-        this.setState({ products: data, status: this.API_STATES.LOADED });
+      .then((productsData) => {
+        setData({ products: productsData, status: LOADED });
       })
       .catch((err) => {
-        this.setState({ status: this.API_STATES.ERROR });
+        console.error(err);
+        setData({ products: [], status: ERROR });
       });
-  }
+  }, []);
 
-  render() {
-    const { products, status } = this.state;
-    return (
-      <div className="App">
-        <Header />
-        <main>
-          {status === "loading" && <Loader />}
-          {status === "error" && <Error />}
-          {status === "loaded" && <Products products={products} />}
-        </main>
-
-        <Footer />
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <Header />
+      <main>
+        {data.status === LOADING && <Loader />}
+        {data.status === ERROR && <Error />}
+        {data.status === LOADED && <Products products={data.products} />}
+      </main>
+      <Footer />
+    </div>
+  );
 }
 
 export default App;
