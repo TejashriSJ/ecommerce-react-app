@@ -1,5 +1,7 @@
 body {
+  margin: 0rem;
   min-height: 100vh;
+  font-family: "Libre Baskerville", serif;
 }
 main {
   min-height: 80vh;
@@ -12,6 +14,19 @@ main {
   align-items: center;
   width: 100vw;
 }
+.update-products {
+  color: white;
+  cursor: pointer;
+}
+.update-products:hover {
+  color: black;
+}
+.cart {
+  cursor: pointer;
+}
+.home {
+  cursor: pointer;
+}
 .navigations ul {
   display: flex;
   flex-direction: column;
@@ -20,7 +35,7 @@ main {
   list-style-type: none;
 }
 .navigations ul :hover {
-  color: rgb(99, 27, 22);
+  color: black;
 }
 
 .display-all {
@@ -29,28 +44,35 @@ main {
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
   background-color: rgb(170, 129, 129);
 }
+.display-all a {
+  text-decoration: none;
+  color: black;
+}
+
 .display-single {
   display: flex;
   flex-direction: column;
   background-color: white;
   border-radius: 0.5rem;
   align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 .display-single img {
-  height: 20rem;
-  width: 20rem;
+  height: 15rem;
+  width: 15rem;
+  margin-bottom: 1rem;
   object-fit: contain;
   background-color: white;
   border-radius: 0.5rem;
+  cursor: pointer;
 }
 .category {
   border: 1px solid gray;
   padding: 0.5rem;
-  background-color: aqua;
+  background-color: rgb(170, 129, 129);
   border-radius: 0.5rem;
 }
 .title {
@@ -157,6 +179,100 @@ main {
     transform: rotate(360deg);
   }
 }
+/*Each product */
+.eachProduct img {
+  height: 20rem;
+  width: 20rem;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+.eachProduct div {
+  width: 40rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.btn-secondary {
+  pointer-events: none;
+}
+/* cart product*/
+.container {
+  max-width: 30rem;
+}
+.product {
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgb(199, 193, 193);
+  padding: 1rem;
+  box-shadow: 1rem 1rem 4rem rgb(199, 156, 156);
+  gap: 2rem;
+}
+.product .cart-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.product img {
+  width: 10rem;
+  height: 10rem;
+  object-fit: contain;
+}
+.discription {
+  padding: 1rem;
+  font-size: 0.7rem;
+}
+.discription p {
+  margin-bottom: 0rem;
+}
+.Category span {
+  color: orange;
+  font-weight: bold;
+}
+.cost span {
+  color: rgb(10, 10, 63);
+  font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.8rem;
+}
+
+.quantity button {
+  font-size: 1rem;
+  width: 1.7rem;
+  border-radius: 50%;
+  margin: 0.5rem;
+  border: 1px solid gray;
+}
+.quantity span {
+  border: 1px solid rgb(168, 165, 165);
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.quantity button:hover {
+  background-color: gray;
+}
+.product button {
+  margin-top: 1rem;
+}
+.prompt-box {
+  border: 1px solid pink;
+  background-color: black;
+  height: 10rem;
+}
+.prompt {
+  border: 1px solid black;
+  padding: 2rem;
+  width: fit-content;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(161, 78, 78);
+  color: white;
+}
+.prompt div {
+  display: flex;
+  justify-content: space-around;
+}
+
 /* Footer */
 .Footer {
   display: flex;

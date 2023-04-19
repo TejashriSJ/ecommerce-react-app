@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
+import { Route, Routes } from "react-router-dom";
 
 import Header from "./Components/Header";
+import Cart from "./Components/Cart";
 import Products from "./Components/Products";
+import EachProductDetails from "./Components/EachProductDetails";
+import UpdateProductDetails from "./Components/UpdateProductDetails";
 import Footer from "./Components/Footer";
-import Loader from "./Components/Loader";
-import Error from "./Components/Error";
+import NotFoundRoute from "./Components/NotFoundRoute";
 
 import "./App.css";
+
+export const AppContext = createContext(null);
 
 function App() {
   const LOADING = "loading";
@@ -14,6 +19,7 @@ function App() {
   const ERROR = "error";
 
   const [data, setData] = useState({ products: [], status: LOADING });
+  const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -30,15 +36,22 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <>
       <Header />
-      <main>
-        {data.status === LOADING && <Loader />}
-        {data.status === ERROR && <Error />}
-        {data.status === LOADED && <Products products={data.products} />}
-      </main>
+      <AppContext.Provider value={{ cartData, setCartData }}>
+        <Routes>
+          <Route path="/" element={<Products data={data} />} />
+          <Route path="/cart" element={<Cart products={data.products} />} />
+          <Route
+            path="/updateProducts"
+            element={<UpdateProductDetails data={data} />}
+          />
+          <Route path="/product/:id" element={<EachProductDetails />} />
+          <Route path="*" element={<NotFoundRoute />} />
+        </Routes>
+      </AppContext.Provider>
       <Footer />
-    </div>
+    </>
   );
 }
 
