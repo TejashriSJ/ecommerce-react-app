@@ -1,5 +1,9 @@
+import { useNavigate } from "react-router-dom";
+
 function Product(props) {
-  const { title, price, category, image, rating } = props.product;
+  const { id, title, price, category, image, rating } = props.product;
+
+  const navigate = useNavigate();
 
   return (
     <div className="display-single">
@@ -11,7 +15,12 @@ function Product(props) {
         {price}
       </p>
       <p className="rating">
-        Rating: {rating.rate} ({rating.count})
+        Rating:
+        {/* <i
+          className="fa-solid fa-star fa-sm"
+          style={{ color: "#edcf07" }}
+        ></i>{" "} */}
+        {rating.rate} ({rating.count})
       </p>
     </div>
   );
