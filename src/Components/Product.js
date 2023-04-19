@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Product(props) {
   const { id, title, price, category, image, rating } = props.product;
@@ -7,7 +7,13 @@ function Product(props) {
 
   return (
     <div className="display-single">
-      <img src={image} alt="product-img"></img>
+      <img
+        src={image}
+        alt="product-img"
+        onClick={() => {
+          navigate(`/product/${id}`);
+        }}
+      ></img>
       <p className="category">{category}</p>
       <p className="title">{title}</p>
       <p className="price">
@@ -22,6 +28,25 @@ function Product(props) {
         ></i>{" "} */}
         {rating.rate} ({rating.count})
       </p>
+      <div className="d-flex justify-content-between mb-2 gap-5">
+        {" "}
+        <button
+          className="btn btn-danger btn-sm"
+          onClick={props.onRemove}
+          id={id}
+        >
+          Remove
+        </button>
+        <Link to="/updateProduct">
+          <button
+            id={id}
+            className="btn btn-warning btn-sm"
+            onClick={props.onEdit}
+          >
+            Update
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }

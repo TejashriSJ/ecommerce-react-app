@@ -20,13 +20,14 @@ function Header() {
         }}
       />
       <h2>STORE</h2>
+
       <p
-        className="update-products"
+        className="add-products"
         onClick={() => {
-          navigate("/updateProducts");
+          navigate("/addProduct");
         }}
       >
-        Update Products
+        Add Products
       </p>
       <div className="navigations">
         <ul>

@@ -273,6 +273,17 @@ main {
   justify-content: space-around;
 }
 
+/* add products */
+.product-form {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-form form {
+  gap: 2rem;
+}
+
 /* Footer */
 .Footer {
   display: flex;

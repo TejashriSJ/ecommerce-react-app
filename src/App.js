@@ -6,6 +6,7 @@ import Cart from "./Components/Cart";
 import Products from "./Components/Products";
 import EachProductDetails from "./Components/EachProductDetails";
 import UpdateProductDetails from "./Components/UpdateProductDetails";
+import AddNewProduct from "./Components/AddNewProduct";
 import Footer from "./Components/Footer";
 import NotFoundRoute from "./Components/NotFoundRoute";
 
@@ -20,6 +21,7 @@ function App() {
 
   const [data, setData] = useState({ products: [], status: LOADING });
   const [cartData, setCartData] = useState([]);
+  const [editData, setEditData] = useState([]);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -35,16 +37,78 @@ function App() {
       });
   }, []);
 
+  //Add
+  const onProductAdded = (newProduct) => {
+    console.log(newProduct);
+    setData({ products: [...data.products, newProduct], status: LOADED });
+  };
+
+  //Delete
+  const removeProduct = (removedId) => {
+    let newData = data.products.filter((product) => {
+      return String(product.id) !== removedId;
+    });
+
+    setData((prevData) => {
+      return { products: newData, status: LOADED };
+    });
+  };
+
+  //Edit
+
+  const editProducts = (editId) => {
+    console.log(editId);
+    let dataToEdit = data.products.filter((product) => {
+      return String(product.id) === editId;
+    });
+    setEditData(dataToEdit);
+    console.log("dataToEdit", dataToEdit);
+  };
+
+  const onProductUpdated = (newData, id) => {
+    let updatedData = data.products.map((product) => {
+      console.log("new data", newData, id, product.id);
+      if (product.id === id) {
+        return newData;
+      } else {
+        return product;
+      }
+    });
+
+    setData((prevData) => {
+      return { products: updatedData, status: LOADED };
+    });
+  };
+
   return (
     <>
       <Header />
       <AppContext.Provider value={{ cartData, setCartData }}>
         <Routes>
-          <Route path="/" element={<Products data={data} />} />
-          <Route path="/cart" element={<Cart products={data.products} />} />
           <Route
-            path="/updateProducts"
-            element={<UpdateProductDetails data={data} />}
+            path="/"
+            element={
+              <Products
+                data={data}
+                removeProduct={removeProduct}
+                editProducts={editProducts}
+              />
+            }
+          />
+          <Route path="/cart" element={<Cart products={data.products} />} />
+
+          <Route
+            path="/updateProduct"
+            element={
+              <UpdateProductDetails
+                onProductUpdated={onProductUpdated}
+                editData={editData}
+              />
+            }
+          />
+          <Route
+            path="/addProduct"
+            element={<AddNewProduct onProductAdded={onProductAdded} />}
           />
           <Route path="/product/:id" element={<EachProductDetails />} />
           <Route path="*" element={<NotFoundRoute />} />
