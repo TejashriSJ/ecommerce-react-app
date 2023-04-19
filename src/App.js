@@ -22,6 +22,7 @@ function App() {
   const [data, setData] = useState({ products: [], status: LOADING });
   const [cartData, setCartData] = useState([]);
   const [editData, setEditData] = useState([]);
+  const [promptBtn, setPromptBtn] = useState(false);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -46,9 +47,9 @@ function App() {
   //Delete
   const removeProduct = (removedId) => {
     let newData = data.products.filter((product) => {
-      return String(product.id) !== removedId;
+      return product.id !== removedId;
     });
-
+    console.log(newData);
     setData((prevData) => {
       return { products: newData, status: LOADED };
     });
@@ -62,12 +63,10 @@ function App() {
       return String(product.id) === editId;
     });
     setEditData(dataToEdit);
-    console.log("dataToEdit", dataToEdit);
   };
 
   const onProductUpdated = (newData, id) => {
     let updatedData = data.products.map((product) => {
-      console.log("new data", newData, id, product.id);
       if (product.id === id) {
         return newData;
       } else {

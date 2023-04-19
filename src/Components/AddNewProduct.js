@@ -12,6 +12,8 @@ function AddNewProduct(props) {
     rating: { rate: 0, count: 0 },
   });
 
+  let [isFormSubmited, setIsFormSubmited] = useState(false);
+
   formData.id = uuidv4();
   const setFormData = (event) => {
     updateFormData({
@@ -19,25 +21,20 @@ function AddNewProduct(props) {
       [event.target.name]: event.target.value,
     });
   };
-  const submitForm = (event) => {
-    event.preventDefault();
 
-    updateFormData({
-      id: "",
-      title: "",
-      description: "",
-      category: "",
-      price: "",
-      image: "",
-      rating: { rate: 0, count: 0 },
-    });
-    console.log("form-data", formData);
+  const submitForm = (event) => {
+    setIsFormSubmited(true);
+    event.preventDefault();
+    event.target.reset();
     props.onProductAdded(formData);
   };
 
   return (
     <div className="product-form mt-5 mb-5">
-      <form className="form-control d-flex flex-column align-items-center w-75">
+      <form
+        className="form-control d-flex flex-column align-items-center w-75"
+        onSubmit={submitForm}
+      >
         <h2>Add New Product</h2>
         <div className="form-control">
           <label>Title:</label>
@@ -46,8 +43,8 @@ function AddNewProduct(props) {
             type="text"
             name="title"
             placeholder="Enter Title"
-            onChange={setFormData}
             required
+            onChange={setFormData}
           ></input>
         </div>
         <div className="form-control">
@@ -84,6 +81,7 @@ function AddNewProduct(props) {
             placeholder="Enter Price"
             onChange={setFormData}
             required
+            max={1000000}
           ></input>
         </div>
         <div className="form-control">
@@ -97,9 +95,14 @@ function AddNewProduct(props) {
             required
           ></input>
         </div>
-        <button className="btn btn-primary" onClick={submitForm}>
+        <button className="btn btn-primary" type="submit">
           Submit
         </button>
+        {isFormSubmited && (
+          <h5 className="text-success text-center">
+            Product Added Successfully!!
+          </h5>
+        )}
       </form>
     </div>
   );

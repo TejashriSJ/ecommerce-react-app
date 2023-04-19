@@ -42,7 +42,7 @@ function DisplayCartProduct(props) {
 
   return (
     <>
-      <div className="container product d-flex">
+      <div className="container cartContainer product d-flex">
         <div>
           <img src={image} alt="product"></img>
           <p className="quantity text-center">

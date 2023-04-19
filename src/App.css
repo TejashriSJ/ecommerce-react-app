@@ -14,13 +14,14 @@ main {
   align-items: center;
   width: 100vw;
 }
-.update-products {
+.add-products {
   color: white;
   cursor: pointer;
 }
-.update-products:hover {
-  color: black;
+.add-products:hover {
+  text-decoration: underline;
 }
+
 .cart {
   cursor: pointer;
 }
@@ -35,7 +36,7 @@ main {
   list-style-type: none;
 }
 .navigations ul :hover {
-  color: black;
+  text-decoration: underline;
 }
 
 .display-all {
@@ -303,4 +304,40 @@ main {
 }
 .copyRights {
   color: white;
+}
+
+@media (max-width: 500px) {
+  .header-block {
+    font-size: 0.5rem;
+  }
+  .Footer {
+    font-size: 0.5rem;
+  }
+  .form-control {
+    font-size: 0.5rem;
+  }
+  .title {
+    width: 15rem;
+  }
+
+  .eachProduct img {
+    height: 15rem;
+    width: 15rem;
+  }
+
+  .display-single {
+    width: 17rem;
+  }
+  .eachProduct div {
+    width: fit-content;
+  }
+  .cartContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 0rem;
+    width: 15rem;
+  }
+  .discription {
+    text-align: center;
+  }
 }

@@ -1,7 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Product(props) {
   const { id, title, price, category, image, rating } = props.product;
+  const [btnClicked, setBtnClicked] = useState(false);
+
+  const onClickPrompt = (event) => {
+    if (event.target.name === "yes") {
+      props.onRemove(id);
+    }
+    setBtnClicked(false);
+  };
+
+  const removeProduct = (event) => {
+    setBtnClicked(true);
+  };
 
   const navigate = useNavigate();
 
@@ -22,17 +35,13 @@ function Product(props) {
       </p>
       <p className="rating">
         Rating:
-        {/* <i
-          className="fa-solid fa-star fa-sm"
-          style={{ color: "#edcf07" }}
-        ></i>{" "} */}
         {rating.rate} ({rating.count})
       </p>
       <div className="d-flex justify-content-between mb-2 gap-5">
         {" "}
         <button
           className="btn btn-danger btn-sm"
-          onClick={props.onRemove}
+          onClick={removeProduct}
           id={id}
         >
           Remove
@@ -47,6 +56,19 @@ function Product(props) {
           </button>
         </Link>
       </div>
+      {btnClicked && (
+        <div className="prompt d-block mx-auto">
+          <p>Are you sure you want to remove the item</p>
+          <div>
+            <button id={props.id} name="yes" onClick={onClickPrompt}>
+              Yes
+            </button>
+            <button name="no" onClick={onClickPrompt}>
+              No
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
