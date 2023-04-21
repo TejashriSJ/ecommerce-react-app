@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function Product(props) {
@@ -16,27 +16,30 @@ function Product(props) {
     setBtnClicked(true);
   };
 
-  const navigate = useNavigate();
-
   return (
     <div className="display-single">
-      <img
-        src={image}
-        alt="product-img"
-        onClick={() => {
-          navigate(`/product/${id}`);
-        }}
-      ></img>
+      <Link className="image" to={`/product/${id}`}>
+        <img src={image} alt="product-img"></img>
+      </Link>
+
       <p className="category">{category}</p>
       <p className="title">{title}</p>
       <p className="price">
         <span className="dollor">$</span>
         {price}
       </p>
-      <p className="rating">
-        Rating:
-        {rating.rate} ({rating.count})
-      </p>
+      <div className="rating d-flex gap-5 mb-2">
+        <div>
+          <i
+            className="fa-solid fa-star fa-sm"
+            style={{ color: "#f0dc00" }}
+          ></i>
+          {rating.rate}
+        </div>
+        <div>
+          <i className="fa-solid fa-user fa-sm"></i> ({rating.count})
+        </div>
+      </div>
       <div className="d-flex justify-content-between mb-2 gap-5">
         {" "}
         <button
@@ -60,10 +63,19 @@ function Product(props) {
         <div className="prompt d-block mx-auto">
           <p>Are you sure you want to remove the item</p>
           <div>
-            <button id={props.id} name="yes" onClick={onClickPrompt}>
+            <button
+              className="btn btn-success"
+              id={props.id}
+              name="yes"
+              onClick={onClickPrompt}
+            >
               Yes
             </button>
-            <button name="no" onClick={onClickPrompt}>
+            <button
+              className="btn btn-danger"
+              name="no"
+              onClick={onClickPrompt}
+            >
               No
             </button>
           </div>

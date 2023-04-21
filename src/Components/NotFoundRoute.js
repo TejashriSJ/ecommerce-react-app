@@ -1,7 +1,7 @@
 function NotFoundRoute() {
   return (
     <main>
-      <h1>Page Not Found</h1>
+      <h2 className="text-danger text-center mt-2">Page Not Found</h2>
     </main>
   );
 }

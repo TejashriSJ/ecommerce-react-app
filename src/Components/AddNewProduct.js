@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 function AddNewProduct(props) {
@@ -32,11 +33,11 @@ function AddNewProduct(props) {
   return (
     <div className="product-form mt-5 mb-5">
       <form
-        className="form-control d-flex flex-column align-items-center w-75"
+        className="form-control d-flex flex-column  w-75"
         onSubmit={submitForm}
       >
-        <h2>Add New Product</h2>
-        <div className="form-control">
+        <h2 className="text-center">Add New Product</h2>
+        <div>
           <label>Title:</label>
           <input
             className="form-control"
@@ -45,9 +46,9 @@ function AddNewProduct(props) {
             placeholder="Enter Title"
             required
             onChange={setFormData}
-          ></input>
+          />
         </div>
-        <div className="form-control">
+        <div>
           <label>Description:</label>
           <textarea
             className="form-control"
@@ -57,7 +58,7 @@ function AddNewProduct(props) {
             required
           ></textarea>
         </div>
-        <div className="form-control">
+        <div>
           <label>Category:</label>
           <select
             className="form-control"
@@ -72,7 +73,7 @@ function AddNewProduct(props) {
             <option value="women's clothing">Women's clothing</option>
           </select>
         </div>
-        <div className="form-control">
+        <div>
           <label>Price</label>
           <input
             className="form-control"
@@ -82,9 +83,9 @@ function AddNewProduct(props) {
             onChange={setFormData}
             required
             max={1000000}
-          ></input>
+          />
         </div>
-        <div className="form-control">
+        <div>
           <label>Image URL</label>
           <input
             className="form-control"
@@ -93,15 +94,21 @@ function AddNewProduct(props) {
             placeholder="Enter Image url"
             onChange={setFormData}
             required
-          ></input>
+          />
         </div>
-        <button className="btn btn-primary" type="submit">
+        <button
+          className="btn btn-primary align-self-center mb-2"
+          type="submit"
+        >
           Submit
         </button>
         {isFormSubmited && (
-          <h5 className="text-success text-center">
-            Product Added Successfully!!
-          </h5>
+          <div className="d-flex flex-column align-items-center prompt mx-auto">
+            <p>Product Added Successfully</p>
+            <Link to="/">
+              <button className="btn btn-success">OK</button>
+            </Link>
+          </div>
         )}
       </form>
     </div>

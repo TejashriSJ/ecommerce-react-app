@@ -1,7 +1,8 @@
 import { useReducer, useState } from "react";
-import DisplayPrompt from "./DisplayPrompt";
 import { useContext } from "react";
 import { AppContext } from "../App";
+
+import DisplayPrompt from "./DisplayPrompt";
 
 const setCounter = (state, action) => {
   switch (action) {

@@ -19,21 +19,26 @@ function DisplayEachProduct(props) {
             Price: <span className="dollor ">$ </span>
             {price}
           </p>
-          <p>
-            Rating:
-            {/* <i
-              className="fa-solid fa-star fa-sm"
-              style={{ color: "#edcf07;" }}
-            ></i>{" "} */}
-            {rating.rate} ({rating.count})
-          </p>
+          Rating:
+          <div className="each-rating d-flex mt-2   text-center">
+            <div>
+              <i
+                className="fa-solid fa-star fa-sm"
+                style={{ color: "#f0dc00" }}
+              ></i>
+              {rating.rate}
+            </div>
+            <div>
+              <i className="fa-solid fa-user fa-sm"></i> ({rating.count})
+            </div>
+          </div>
           <button
             className={`btn ${
               btnState === "Add to Cart" ? "btn-primary" : "btn-secondary"
             } align-self-center`}
             onClick={(event) => {
               props.setCartData([...props.cartData, id]);
-              console.log(event);
+
               event.target.style.pointerEvents = "none";
               event.target.style.backgroundColor = "light gray";
               setBtnState("Added to Cart");

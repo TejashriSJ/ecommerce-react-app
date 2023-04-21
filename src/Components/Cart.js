@@ -22,10 +22,10 @@ function Cart(props) {
         cartProductDetails.map((product) => {
           return (
             <DisplayCartProduct
+              key={product.id}
               product={product}
               cartData={cartData}
               setCartData={setCartData}
-              key={product.id}
             />
           );
         })

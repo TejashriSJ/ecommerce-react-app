@@ -2,12 +2,16 @@ import React, { useState, useEffect, createContext } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Header from "./Components/Header";
-import Cart from "./Components/Cart";
+
 import Products from "./Components/Products";
 import EachProductDetails from "./Components/EachProductDetails";
+import Cart from "./Components/Cart";
+
 import UpdateProductDetails from "./Components/UpdateProductDetails";
 import AddNewProduct from "./Components/AddNewProduct";
+
 import Footer from "./Components/Footer";
+
 import NotFoundRoute from "./Components/NotFoundRoute";
 
 import "./App.css";
@@ -34,7 +38,7 @@ function App() {
       })
       .catch((err) => {
         console.error(err);
-        setData({ products: [], status: ERROR });
+        setData({ ...data, status: ERROR });
       });
   }, []);
 
@@ -49,7 +53,7 @@ function App() {
     let newData = data.products.filter((product) => {
       return product.id !== removedId;
     });
-    console.log(newData);
+
     setData((prevData) => {
       return { products: newData, status: LOADED };
     });
@@ -58,7 +62,6 @@ function App() {
   //Edit
 
   const editProducts = (editId) => {
-    console.log(editId);
     let dataToEdit = data.products.filter((product) => {
       return String(product.id) === editId;
     });
