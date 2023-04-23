@@ -1,7 +1,14 @@
 import React, { Component } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { INIT_PRODUCTS } from "./Redux/actionTypes";
+
+import axios from "axios";
 
 import Header from "./Components/Header";
 import Products from "./Components/Products";
+import AddProduct from "./Components/AddProduct";
+import UpdateProduct from "./Components/UpdateProduct";
 import Footer from "./Components/Footer";
 import Loader from "./Components/Loader";
 import Error from "./Components/Error";
@@ -17,39 +24,67 @@ class App extends Component {
       ERROR: "error",
     };
     this.state = {
-      products: [],
       status: this.API_STATES.LOADING,
     };
   }
 
   componentDidMount() {
-    fetch("https://fakestoreapi.com/products")
+    axios("https://fakestoreapi.com/products")
       .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        this.setState({ products: data, status: this.API_STATES.LOADED });
+        this.props.initProducts(response.data);
+        this.setState({
+          status: this.API_STATES.LOADED,
+        });
       })
       .catch((err) => {
+        console.error(err);
         this.setState({ status: this.API_STATES.ERROR });
       });
   }
 
   render() {
-    const { products, status } = this.state;
+    console.log("App.render store", this.props.store);
+    const { status } = this.state;
     return (
-      <div className="App">
-        <Header />
-        <main>
-          {status === "loading" && <Loader />}
-          {status === "error" && <Error />}
-          {status === "loaded" && <Products products={products} />}
-        </main>
+      <BrowserRouter>
+        <div className="App">
+          <Header />
+          <main>
+            {status === this.API_STATES.LOADING && <Loader />}
+            {status === this.API_STATES.ERROR && <Error />}
+            {status === this.API_STATES.LOADED && (
+              <Routes>
+                <Route
+                  path="/"
+                  element={<Products products={this.props.products} />}
+                />
+                <Route path="/addProduct" element={<AddProduct />} />
+                <Route path="/updateProduct/:id" element={<UpdateProduct />} />
+              </Routes>
+            )}
+          </main>
 
-        <Footer />
-      </div>
+          <Footer />
+        </div>
+      </BrowserRouter>
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    products: state.products.listOfProducts,
+  };
+};
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    initProducts: (products) => {
+      dispatch({
+        type: INIT_PRODUCTS,
+        payload: products,
+      });
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

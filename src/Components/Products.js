@@ -6,7 +6,7 @@ class Products extends Component {
     return (
       <div className="display-all">
         {this.props.products.map((product) => {
-          return <Product product={product} />;
+          return <Product key={product.id} product={product} />;
         })}
       </div>
     );
