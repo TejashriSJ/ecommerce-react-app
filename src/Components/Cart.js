@@ -6,17 +6,17 @@ import noItemsImg from "../Images/noItemsInCart.png";
 import DisplayCartProductDetails from "./DisplayCartProductDetails";
 
 class Cart extends Component {
-  cartProductDetails = this.props.cartProducts.map((cartProductID) => {
-    return this.props.products.find((product) => {
-      return product.id === cartProductID;
-    });
-  });
+  //   cartProductDetails = this.props.cartProducts.map((cartProductID) => {
+  //     return this.props.products.find((product) => {
+  //       return product.id === cartProductID;
+  //     });
+  //   });
 
   render() {
     return (
       <>
-        {this.cartProductDetails.length !== 0 &&
-          this.cartProductDetails.map((cartProduct) => {
+        {this.props.cartProducts.length !== 0 &&
+          this.props.cartProducts.map((cartProduct) => {
             return (
               <DisplayCartProductDetails
                 key={cartProduct.id}
@@ -24,7 +24,7 @@ class Cart extends Component {
               />
             );
           })}
-        {this.cartProductDetails.length === 0 && (
+        {this.props.cartProducts.length === 0 && (
           <img
             src={noItemsImg}
             alt="No Items In Cart"
@@ -38,7 +38,7 @@ class Cart extends Component {
 const mapStateToProps = (state) => {
   return {
     cartProducts: state.cart.cartProducts,
-    products: state.products.listOfProducts,
+    // products: state.products.listOfProducts,
   };
 };
 

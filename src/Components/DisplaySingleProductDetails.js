@@ -9,7 +9,6 @@ class DisplaySingleProductDetails extends Component {
     super(props);
 
     this.state = {
-      productDetails: { ...this.props.productDetails },
       btnState: this.props.cartProducts.includes(this.props.productDetails.id)
         ? "Added to Cart"
         : "Add to Cart",
@@ -18,7 +17,7 @@ class DisplaySingleProductDetails extends Component {
 
   render() {
     let { id, image, category, title, description, price, rating } =
-      this.state.productDetails;
+      this.props.productDetails;
     return (
       <>
         <div className="eachProduct container d-flex flex-column align-items-center">
@@ -51,9 +50,8 @@ class DisplaySingleProductDetails extends Component {
                   : "btn-secondary"
               } align-self-center`}
               onClick={(event) => {
-                this.props.addToCart(id);
+                this.props.addToCart(this.props.productDetails);
                 event.target.style.pointerEvents = "none";
-                event.target.style.backgroundColor = "light gray";
                 this.setState({
                   btnState: "Added to cart",
                 });
@@ -76,10 +74,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToCart: (productId) => {
+    addToCart: (productDetails) => {
       dispatch({
         type: ADD_PRODUCT_TO_CART,
-        payload: productId,
+        payload: productDetails,
       });
     },
   };

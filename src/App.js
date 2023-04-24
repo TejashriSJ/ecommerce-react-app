@@ -57,10 +57,7 @@ class App extends Component {
             {status === this.API_STATES.ERROR && <Error />}
             {status === this.API_STATES.LOADED && (
               <Routes>
-                <Route
-                  path="/"
-                  element={<Products products={this.props.products} />}
-                />
+                <Route path="/" element={<Products />} />
                 <Route path="/addProduct" element={<AddProduct />} />
                 <Route path="/updateProduct/:id" element={<UpdateProduct />} />
                 <Route path="/product/:id" element={<SingleProductDetails />} />
@@ -76,11 +73,6 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    products: state.products.listOfProducts,
-  };
-};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -93,4 +85,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

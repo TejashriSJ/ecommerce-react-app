@@ -12,8 +12,8 @@ const cart = (state = initCartProducts, action) => {
 
     case REMOVE_CART_PRODUCT:
       return {
-        cartProducts: state.cartProducts.filter((productID) => {
-          return productID !== action.payload;
+        cartProducts: state.cartProducts.filter((product) => {
+          return product.id !== action.payload;
         }),
       };
     default:

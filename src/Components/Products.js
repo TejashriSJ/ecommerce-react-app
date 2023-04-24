@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Product from "./Product";
 
 class Products extends Component {
@@ -12,4 +13,10 @@ class Products extends Component {
     );
   }
 }
-export default Products;
+const mapStateToProps = (state) => {
+  return {
+    products: state.products.listOfProducts,
+  };
+};
+
+export default connect(mapStateToProps)(Products);
