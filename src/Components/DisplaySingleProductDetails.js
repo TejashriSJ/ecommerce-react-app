@@ -8,8 +8,12 @@ class DisplaySingleProductDetails extends Component {
   constructor(props) {
     super(props);
 
+    this.cartIds = this.props.cartProducts.map((product) => {
+      return product.id;
+    });
+
     this.state = {
-      btnState: this.props.cartProducts.includes(this.props.productDetails.id)
+      btnState: this.cartIds.includes(this.props.productDetails.id)
         ? "Added to Cart"
         : "Add to Cart",
     };

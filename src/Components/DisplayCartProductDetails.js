@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { REMOVE_CART_PRODUCT } from "../Redux/actionTypes";
+import {
+  REMOVE_CART_PRODUCT,
+  INCREASE_QUANTITY,
+  DECREASE_QUANTITY,
+} from "../Redux/actionTypes";
 
 class DisplayCartProductDetails extends Component {
   constructor(props) {
@@ -34,18 +38,20 @@ class DisplayCartProductDetails extends Component {
               <button
                 name="decrement"
                 onClick={() => {
-                  if (this.state.count > 1) {
-                    this.setState({ count: this.state.count - 1 });
-                  }
+                  //   if (this.state.count > 1) {
+                  //     this.setState({ count: this.state.count - 1 });
+                  //   }
+                  this.props.decreaseQuantity(id);
                 }}
               >
                 -{" "}
               </button>{" "}
-              <span className="count">{this.state.count}</span>{" "}
+              <span className="count">{this.props.cartProduct.quantity}</span>{" "}
               <button
                 name="increment"
                 onClick={() => {
-                  this.setState({ count: this.state.count + 1 });
+                  //this.setState({ count: this.state.count + 1 });
+                  this.props.increaseQuantity(id);
                 }}
               >
                 {" "}
@@ -61,7 +67,11 @@ class DisplayCartProductDetails extends Component {
               Category: <span>{category}</span>
             </p>
             <p className="cost">
-              Cost : <span> $ {(price * this.state.count).toFixed(2)}</span>
+              Cost :{" "}
+              <span>
+                {" "}
+                $ {(price * this.props.cartProduct.quantity).toFixed(2)}
+              </span>
             </p>
 
             <button className="btn btn-danger" onClick={this.removeCartProduct}>
@@ -100,6 +110,18 @@ const mapDispatchToProps = (dispatch) => {
     removeCartProduct: (id) => {
       dispatch({
         type: REMOVE_CART_PRODUCT,
+        payload: id,
+      });
+    },
+    increaseQuantity: (id) => {
+      dispatch({
+        type: INCREASE_QUANTITY,
+        payload: id,
+      });
+    },
+    decreaseQuantity: (id) => {
+      dispatch({
+        type: DECREASE_QUANTITY,
         payload: id,
       });
     },

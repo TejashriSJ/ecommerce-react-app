@@ -6,12 +6,6 @@ import noItemsImg from "../Images/noItemsInCart.png";
 import DisplayCartProductDetails from "./DisplayCartProductDetails";
 
 class Cart extends Component {
-  //   cartProductDetails = this.props.cartProducts.map((cartProductID) => {
-  //     return this.props.products.find((product) => {
-  //       return product.id === cartProductID;
-  //     });
-  //   });
-
   render() {
     return (
       <>
@@ -38,7 +32,6 @@ class Cart extends Component {
 const mapStateToProps = (state) => {
   return {
     cartProducts: state.cart.cartProducts,
-    // products: state.products.listOfProducts,
   };
 };
 
