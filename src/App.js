@@ -7,11 +7,14 @@ import axios from "axios";
 
 import Header from "./Components/Header";
 import Products from "./Components/Products";
+import SingleProductDetails from "./Components/SingleProductDetails";
 import AddProduct from "./Components/AddProduct";
 import UpdateProduct from "./Components/UpdateProduct";
+import Cart from "./Components/Cart";
 import Footer from "./Components/Footer";
 import Loader from "./Components/Loader";
 import Error from "./Components/Error";
+import RootNotFound from "./Components/RootNotFound";
 
 import "./App.css";
 
@@ -60,6 +63,9 @@ class App extends Component {
                 />
                 <Route path="/addProduct" element={<AddProduct />} />
                 <Route path="/updateProduct/:id" element={<UpdateProduct />} />
+                <Route path="/product/:id" element={<SingleProductDetails />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="*" element={<RootNotFound />} />
               </Routes>
             )}
           </main>

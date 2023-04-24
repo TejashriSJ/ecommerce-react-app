@@ -28,9 +28,15 @@ class Header extends Component {
             <li className="sign-up">Sign Up</li>
           </ul>
         </div>
-        <div>
-          <FontAwesomeIcon icon={faCartShopping} size="lg" />
-        </div>
+        <Link to="/cart">
+          <div>
+            <FontAwesomeIcon
+              icon={faCartShopping}
+              size="lg"
+              style={{ textDecoration: "none", color: "white" }}
+            />
+          </div>
+        </Link>
       </div>
     );
   }

@@ -23,7 +23,9 @@ class Product extends Component {
     const { id, title, price, category, image, rating } = this.props.product;
     return (
       <div className="display-single">
-        <img src={image} alt="product-img"></img>
+        <Link to={`/product/${id}`}>
+          <img src={image} alt="product-img"></img>
+        </Link>
         <p className="category mt-2">{category}</p>
         <p className="title">{title}</p>
         <p className="price">
@@ -75,7 +77,6 @@ class Product extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     removeProduct: (id) => {
-      console.log("id", id);
       dispatch({
         type: REMOVE_PRODUCT,
         payload: id,
